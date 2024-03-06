@@ -11,8 +11,6 @@ public class DatabaseConnection {
     static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/shopdb";
     static final String USER = "postgres";
     static final String PASS = "q";
-//    @Getter
-//    private static Connection connection;
 
     public static Connection getConnection() {
         Connection connection = null;
@@ -24,11 +22,4 @@ public class DatabaseConnection {
         }
         return connection;
     }
-
-    //    public Connection getConnection() {
-//        return this.connection;
-//    }
-
-
-
 }
