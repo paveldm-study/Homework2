@@ -10,13 +10,13 @@ import java.sql.Connection;
 //@ExtendWith(MockitoExtension.class)
 public class UserServletTest {
 
-    Connection connection;
-    private UserDto userDto = new UserDto(5, "Alice Jackson");
+//    Connection connection;
+//    private UserDto userDto = new UserDto(5, "Alice Jackson");
 
-    @BeforeAll
-    public static void setUp(){
-        connection = DatabaseConnection.getConnection();
-    }
+//    @BeforeAll
+//    public static void setUp(){
+//        connection = DatabaseConnection.getConnection();
+//    }
 
 
 

@@ -4,47 +4,72 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.dpa.study.userbase1.service.OrdersService;
-import org.dpa.study.userbase1.service.UsersService;
+import lombok.SneakyThrows;
+import org.dpa.study.userbase1.services.UsersService;
+import org.dpa.study.userbase1.utils.OwnException;
+import org.json.JSONArray;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.PrintWriter;
 
 @WebServlet(name = "UserServlet", urlPatterns = "/users")
 public class UserServlet extends HttpServlet {
 
+    @SneakyThrows
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getContentType().equals("application/json")) {
-            try {
-                String result = UsersService.getUser(request);
-                response.getWriter().write(result);
-            } catch (SQLException e) {
-                e.printStackTrace();
+
+            JSONArray jsonArray = UsersService.getUser(request);
+
+            if (jsonArray != null) {
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                PrintWriter out = response.getWriter();
+                out.print(jsonArray.toString());
+                out.flush();
+            } else {
+                response.setContentType("text/plain");
+                response.setCharacterEncoding("UTF-8");
+
+                PrintWriter out = response.getWriter();
+                out.print("Result is null");
+                out.flush();
             }
         } else {
-            System.out.println("something went wrong");
+            throw new OwnException("Request is not a json");
         }
     }
 
+
+    @SneakyThrows
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
         if (request.getContentType().equals("application/json")) {
             String result = UsersService.deleteUserById(request);
             response.getWriter().write(result);
         } else {
-            System.out.println("something went wrong");
+            throw new OwnException("Something went wrong");
         }
-
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getContentType().equals("application/json")) {
-                UsersService.addUser(request);
+            System.out.println(request);
+            System.out.println("dopost");
+
+            String result = UsersService.addUser(request);
+
+            response.setContentType("text/plain");
+            response.setCharacterEncoding("UTF-8");
+
+            PrintWriter out = response.getWriter();
+            out.print(result);
+            out.flush();
         } else {
             System.out.println("something went wrong");
         }
     }
 }
+

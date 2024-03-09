@@ -1,10 +1,8 @@
-package org.dpa.study.userbase1.mapper;
+package org.dpa.study.userbase1.mappers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.dpa.study.userbase1.dtos.OrderDto;
-import org.dpa.study.userbase1.dtos.UserDto;
-import org.glassfish.jersey.model.internal.RankedComparator;
 
 import java.io.IOException;
 

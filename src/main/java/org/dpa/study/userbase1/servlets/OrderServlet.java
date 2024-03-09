@@ -4,11 +4,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import org.dpa.study.userbase1.service.OrdersService;
-import org.dpa.study.userbase1.service.UsersService;
+import org.dpa.study.userbase1.services.OrdersService;
 
 import java.io.IOException;
 

@@ -1,45 +1,51 @@
-package org.dpa.study.userbase1.repository;
+package org.dpa.study.userbase1.repositories;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import org.dpa.study.userbase1.database.DatabaseConnection;
 import org.dpa.study.userbase1.dtos.UserDto;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class UsersRepository {
 
-    public static String getUserById(UserDto user) {
-        try(Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT  *  FROM shopdb.shopschema.users WHERE id = ?")) {
-            preparedStatement.setInt(1, user.getId());
+    public static JSONArray getUser(int id) {
+        try(Connection connection = DatabaseConnection.getConnection()) {
+            ResultSet resultSet;
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            Map<Integer, String> data = new HashMap<>();
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                data.put(id, name);
+            if (id == 0) {
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM shopdb.shopschema.users");
+                resultSet = preparedStatement.executeQuery();
+            } else {
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM shopdb.shopschema.users WHERE id = ?");
+                preparedStatement.setInt(1, id);
+                resultSet = preparedStatement.executeQuery();
             }
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            String jacksonData = objectMapper.writeValueAsString(data);
+            JSONArray resultSetJsonArray = new JSONArray();
 
-            return jacksonData;
+            while (resultSet.next()) {
+                ResultSetMetaData metaData = resultSet.getMetaData();
+                JSONObject row = new JSONObject();
+
+                for (int i = 1; i <= metaData.getColumnCount(); i++) {
+                    String columnLabel = metaData.getColumnLabel(i);
+                    Object value = resultSet.getObject(columnLabel);
+                    row.put(columnLabel, value);
+                }
+
+                resultSetJsonArray.put(row);
+            }
+
+            return resultSetJsonArray;
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
         }
         return null;
     }
 
     public static void addUser(UserDto user) {
+
         try(Connection connection = DatabaseConnection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO shopdb.shopschema.users (id, name) VALUES (?, ?)")) {
 
@@ -64,6 +70,4 @@ public class UsersRepository {
         }
         return null;
     }
-
-
 }

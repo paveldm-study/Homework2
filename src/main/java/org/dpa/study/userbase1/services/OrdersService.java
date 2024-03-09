@@ -1,9 +1,9 @@
-package org.dpa.study.userbase1.service;
+package org.dpa.study.userbase1.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.dpa.study.userbase1.dtos.UserDto;
-import org.dpa.study.userbase1.repository.UsersRepository;
+import org.dpa.study.userbase1.repositories.UsersRepository;
 
 import java.io.IOException;
 
