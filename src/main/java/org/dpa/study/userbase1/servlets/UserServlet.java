@@ -53,6 +53,7 @@ public class UserServlet extends HttpServlet {
         }
     }
 
+    @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getContentType().equals("application/json")) {
@@ -68,7 +69,7 @@ public class UserServlet extends HttpServlet {
             out.print(result);
             out.flush();
         } else {
-            System.out.println("something went wrong");
+            throw new OwnException("Something went wrong");
         }
     }
 }
