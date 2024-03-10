@@ -44,10 +44,12 @@ public class UserServletTest {
     public void testDoGet() throws Exception {
 
         UserServlet servlet = new UserServlet();
+//
+//        MockServletContext context = new MockServletContext();
+//
+//        servlet.init((ServletConfig) context);
 
-        MockServletContext context = new MockServletContext();
-
-        servlet.init((ServletConfig) context);
+        servlet.doGet().setAccessible(true);
 
         servlet.doGet(request, response);
 
