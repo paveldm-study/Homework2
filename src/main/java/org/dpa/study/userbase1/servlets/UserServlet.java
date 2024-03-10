@@ -5,16 +5,16 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
-import org.dpa.study.userbase1.mappers.GetParamsFromRequest;
+import org.dpa.study.userbase1.repositories.UsersRepository;
 import org.dpa.study.userbase1.services.UsersService;
 import org.dpa.study.userbase1.utils.OwnException;
 import org.json.JSONArray;
 import org.json.JSONObject;
-//import org.json.simple.parser.JSONParser;
-//import org.json.simple.parser.ParseException;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.sql.SQLException;
+import java.net.URLDecoder;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -71,6 +71,113 @@ public class UserServlet extends HttpServlet {
 //    пока не получилось вынуть id и name одновременно
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        UsersService.updateUser(request);
+
+
+
+
+
+
+
+
+//        for(String elem : parts) {
+//            String[] temp = elem.split(":");
+//            hashMap.put(temp[1], temp[2]);
+//        }
+//
+//        hashMap.forEach((key, value) -> {
+//            System.out.println(key + " : " + value);
+//        });
+
+
+
+
+
+//        BufferedReader reader = request.getReader();
+//        StringBuilder sb = new StringBuilder();
+//        String line;
+//
+//        while ((line = reader.readLine()) != null) {
+//            sb.append(line);
+//        }
+//
+//        String requestBody = sb.toString();
+////        Parse the request body String to extract the parameters:
+//
+//        Map<String, String> params = new HashMap<>();
+//        String[] parts = requestBody.split("&");
+//
+//        for (String part : parts) {
+//            String[] keyVal = part.split("=");
+//            if (keyVal.length == 2) {
+//                String key = URLDecoder.decode(keyVal[0], "UTF-8");
+//                String value = URLDecoder.decode(keyVal[1], "UTF-8");
+//                params.put(key, value);
+//            }
+//        }
+//
+//        String paramValue0 = params.get("id");
+//        String paramValue1 = params.get("name");
+//
+//        System.out.println("^ " + paramValue0 + " " + paramValue1);
+
+
+
+
+
+//        StringBuilder sb = new StringBuilder();
+//        BufferedReader reader = request.getReader();
+//        String line;
+//        while ((line = reader.readLine()) != null) {
+//            sb.append(line);
+//        }
+//
+//        String requestBody = sb.toString();
+//        System.out.println("Тело запроса PUT: " + requestBody);
+//        После этого вы можете разобрать строку requestBody и извлечь значения параметров "id" и "name".
+//
+//                Например, с использованием библиотеки JSON Simple:
+
+
+
+//
+//// Разбор тела запроса в JSON объект
+//        JSONParser parser = new JSONParser();
+//        try {
+//            JSONObject jsonObject = (JSONObject) parser.parse(requestBody);
+//
+//            // Получение параметров по ключам
+//            long id = (long) jsonObject.get("id");
+//            String name = (String) jsonObject.get("name");
+//
+//            System.out.println("id: " + id);
+//            System.out.println("name: " + name);
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+
+
+//        System.out.println(request.getContentType());
+//        System.out.println(request.getQueryString());
+//
+//        Map<String, String[]> parameterMap = Collections.list(request.getParameterNames()).stream().
+//            collect(Collectors.toMap(parameterName -> parameterName, request::getParameterValues));
+//
+//        if (parameterMap.isEmpty()) {
+//            System.out.println("dtretr");
+//        }
+//
+//        for (Map.Entry<String, String[]> entry : parameterMap.entrySet()) {
+//            System.out.print(entry.getKey() + ": ");
+//            for (String value : entry.getValue()) {
+//                System.out.print(value + ", ");
+//            }
+//            System.out.println();
+//        }
+
+
 
 //        Collections.list(httpServletRequest.getParameterNames())
 //                .stream()

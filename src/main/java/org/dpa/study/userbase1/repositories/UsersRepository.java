@@ -57,7 +57,19 @@ public class UsersRepository {
         }
     }
 
-      public static String deleteUserById(UserDto user) {
+    public static void updateUserById(int id, String name) {
+        try(Connection connection = DatabaseConnection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE shopdb.shopschema.users SET name = ? WHERE id = ?")) {
+
+            preparedStatement.setString(1, name);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String deleteUserById(UserDto user) {
         try(Connection connection = DatabaseConnection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM shopdb.shopschema.users WHERE (id = ?)")) {
 
